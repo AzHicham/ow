@@ -5,17 +5,20 @@ Ow is a web app (REST API) that allow scanning, building & running of Dockerfile
 ## API
 ### /endpoints
 
+#### Get list of jobs
+Retrieve a list of jobs regardless of their status ('pending', 'running', 'failed', 'done')
+You can also pass an id [int] to retrieve a specific job
+
     GET /v0/jobs/<id> [id: optional int]
     return {"jobs": [{"id": 1, "job_status": "done", "error": null, "result": {"perf": 0.99}}]}
 
-This method retrieve a list of jobs regardless of their status ('pending', 'running', 'failed', 'done')
-You can also pass an id [int] to retrieve a specific job
+#### Submit a Dockerfile (scan, build, run)
+
 
     POST /v0/jobs
     return {"job": {"id": 1, "status": "pending"}}
 
-This method is used to submit a Dockerfile
-##### Example with curl
+##### How to upload Docker file with curl
 
     curl -F "file=@Dockerfile_test"  http://localhost:5009/v0/jobs
 
@@ -56,3 +59,6 @@ Start Ow App (in another terminal)
     FLASK_APP=ow:app PYTHONPATH=. flask run --host=0.0.0.0 -p 5009 # Run Ow web app
 
 Congrats :)
+
+
+Phase development
