@@ -1,0 +1,27 @@
+version: "3"
+
+volumes:
+  pgdata_ow:
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  db_ow:
+     image: postgis/postgis
+     ports:
+      - 5432:5432
+     volumes:
+      - pgdata_ow:/var/lib/postgresql/data
+     environment:
+      - POSTGRES_USER=ow
+      - POSTGRES_PASSWORD=ow
+      - POSTGRES_DB=ow
+
+  redis:
+    image: redis:6-alpine
+    ports:
+      - 6379:6379
